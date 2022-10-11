@@ -1,0 +1,201 @@
+<!DOCTYPE HTML>
+<html lang="pl">
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<title>DzieńDobryNaSzlaku</title>
+	<meta name="description" content="Opis w Google" />
+	<meta name="keywords" content="słowa, kluczowe, wypisane, po, porzecinku" />
+
+
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;1,700&family=Open+Sans:wght@400;700&display=swap"
+      rel="stylesheet" />
+	  <link rel="stylesheet" href="../lib/leaflet/leaflet.css" />
+    <link rel="stylesheet" href="../style.css" />
+
+
+
+	<link href="mapa.css" rel="stylesheet" type="text/css"/>
+	<link href='http://fonts.googleapis.com/css?family=Lato:400,700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+	<link href="css/fontello.css" rel="stylesheet" type="text/css"/>
+
+
+
+</head>
+<body>
+	<div class="wrapper">
+		<div class="header">
+			<div class="logo">
+				<img src='img/Logo3.png' width="100" height="100" style='float:left'/>
+				dzieńdobrynaszlaku.pl
+				<div style="clear:both"></div>
+			</div>
+		</div>
+		<div class="nav">
+			<ol>
+				<li><a href='../index.html'>Strona główna</a></li>
+				<li>
+					<a href='#'>Korona Tatr</a>
+						<ul>
+							<li><a href='#'>Rysy</a></li>
+							<li><a href='#'>Świnica</a></li>
+							<li><a href='#'>Giewont</a></li>
+							<li><a href='#'>Błyszcz</a></li>
+						</ul>
+				</li>
+				<li>
+					<a href='#'>Tatry Zachodnie</a>
+						<ul>
+							<li><a href='#'>Banówka</a></li>
+							<li><a href='#'>Mały Kozi Wierch</a></li>
+							<li><a href='#'>Jarząbczy Wierch</a></li>
+							<li><a href='#'>Kościelec</a></li>
+						</ul>
+				</li>
+				<li>
+					<a href='#'>Tatry Wschodnie</a>
+						<ul>
+							<li><a href='#'>Ciemniak</a></li>
+							<li><a href='#'>Wołowiec</a></li>
+							<li><a href='#'>Smrek</a></li>
+							<li><a href='#'>Spalona</a></li>
+						</ul>
+				</li>
+				<li>
+					<a href='#'>Schroniska</a>
+						<ul>
+							<li><a href='#'>Morskie Oko</a></li>
+							<li><a href='#'>Ornak</a></li>
+							<li><a href='#'>Murowaniec</a></li>
+							<li><a href='#'>Chochołowska</a></li>
+							<li><a href='#'>Pięc stawów</a></li>
+							<li><a href='#'>Kondratowa</a></li>
+						</ul>
+				</li>
+				<li><a href='#'>Kontakt</a></li>	
+			</ol>
+		</div>
+		<div class="content">
+			<h2>Aktualności z punktów na szlaku</h2>
+		<button id="button_open_modal">Dodaj aktualność:</button>
+		<br></br>
+		<button class="guzik">Usuń aktualności:</button>
+      <!-- CSS  -->
+        <div class="modalBox">
+          <button class="button_close_modal">&times;</button>
+            <form  action='query_insert.php' method="POST" id="modal_do_wprowadzania_danych">
+              <h2>Dodaj aktualność:</h2>
+			  
+			  <label for="object_date">date:</label><br/>
+			  <input type="text" id="object_date" name='object_date' value='02/26/2022'/><br/>
+	
+			  <label for="object_lat">latitude:</label><br/>
+			  <input type="text" id="object_lat" name="object_lat" value='50.75'/><br/>
+	
+			  <label for="object_lng">longitude:</label><br/>
+			  <input type="text" id="object_lng" name="object_lng" value='23.25'/><br/>
+	
+			  <label for="object_location">location:</label><br/>
+			  <input type="text" id="object_location" name="object_location" value='ZAMOŚĆ YEAAHH!! '/><br/>
+	
+			  <label for="object_description">description:</label><br/>
+			  <input type="text" id="object_description" name="object_description" value='An accident'/><br/>
+	
+			  <label for="object_image">image:</label><br/>
+			  <input type="text" id="object_image" name="object_image" value='twitter'/><br/>
+	
+			  <button type="submit" value="submit" name="submit" id="data_save">Zapisz</button>
+            </form>
+            
+        </div>
+<!-- Tutaj jest modal do edycji danych-->
+        <div class="modalBox_edit">
+          <button class="button_close_modal">&times;</button>
+            <form id="modal_do_edytowania_danych">
+              <h2>Edytuj aktualność:</h2>
+			  <label for="object_id_edit">id:</label> <br/>
+			  <input type="text" id="object_id_edit" name="object_id" value='CIV999'/><br/><br/>
+			  
+			  <label for="object_date_edit">date:</label><br/>
+			  <input type="text" id="object_date_edit" name="object_date" value='02/26/2022'/><br/><br/>
+	
+			  <label for="object_location_edit">location:</label><br/>
+			  <input type="text" id="object_location_edit" name="object_location" value='ZAMOŚĆ YEAAHH!! '/><br/><br/>
+	
+			  <label for="object_description_edit">description:</label><br/>
+			  <input type="text" id="object_description_edit" name="object_description" value='An accident'/><br/><br/>
+	
+			  <label for="object_image_edit">image:</label><br/>
+			  <input type="text" id="object_image_edit" name="object_image" value='twitter'/><br/><br/>
+	
+			  <button type="submit" value="submit" id="save_edits">Zapisz zmiany</button>
+			  <button type="submit" value="submit" class="button_close_modal">Odrzuć zmiany</button>
+            </form>
+
+        </div>
+
+		<div class="modalBox_delete">
+			<button class="button_close_modal">&times;</button>
+			  <form  id="modal_do_usuwania_danych">
+				<h2>Wybierz obiekt:</h2>
+				
+				<label for="object_id_delete">id:</label><br/>
+				<input type="text" id="object_id_delete" name="object_id_delete" value='id'/><br/>
+	  
+				<button type="submit" value="submit" name="submit" id="delete_save">Usuń</button>
+			  </form>
+			  
+		  </div>
+      <div id="lista">
+        <div id="obiekty"></div>
+        <!--to dodane -->
+      </div>
+
+      <div id="mymap"></div>
+    </div> <!--to przesunięte z dołu -->
+    <div class="sliderContainer">
+      <input
+        type="range"
+        min="1"
+        max="30"
+        value="10"
+        class="slider"
+        id="myRange"
+      />
+    </div>
+		<div class="footer">
+			dziendobrynaszlaku.pl &copy; 2022 Dziękuje za wizytę mojego bloga!
+		</div>
+	</div>
+	<script src="jquery-1.11.3.min.js"></script>
+	<script>
+
+		$(document).ready(function() {
+		var NavY = $('.nav').offset().top;
+		
+		var stickyNav = function(){
+		var ScrollY = $(window).scrollTop();
+			
+		if (ScrollY > NavY) { 
+			$('.nav').addClass('sticky');
+		} else {
+			$('.nav').removeClass('sticky'); 
+		}
+		};
+		
+		stickyNav();
+		
+		$(window).scroll(function() {
+			stickyNav();
+		});
+		});
+		
+	</script>
+	<script src="../lib/leaflet/leaflet.js"></script>
+    <script src="../lib/jquery-3.6.0.js"></script>
+    <script src="./mapa.js"></script>
+</body>
+</html>
